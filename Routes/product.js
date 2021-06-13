@@ -67,8 +67,6 @@ app.post('/products', async (req, res) => {
 //update products
 app.put('/products', async (req, res) => {
    
-    
-
     try {
         const result = updateProduct(req.params.id, req.body)
         successResMsg(
