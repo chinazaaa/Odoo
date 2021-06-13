@@ -66,12 +66,11 @@ app.post('/products', async (req, res) => {
 
 //update products
 app.put('/products', async (req, res) => {
-    const {
-        id
-    } = req.params
+   
+    
 
     try {
-        const result = updateProduct(req.body)
+        const result = updateProduct(req.params.id, req.body)
         successResMsg(
             res,
             true,
@@ -89,12 +88,9 @@ app.put('/products', async (req, res) => {
 
 //delete products
 app.delete('/products', async (req, res) => {
-    const {
-        id
-    } = req.params
-
+  
     try {
-        const result = deleteProduct(req.body)
+        const result = deleteProduct(req.params.id, req.body)
         successResMsg(
             res,
             true,
