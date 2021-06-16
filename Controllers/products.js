@@ -33,7 +33,7 @@ const createProduct = ({name, type, categ_id, uom_id, uom_po_id})=> {
     });
 };
 //get all products in the db
-const getProducts = ({id}) => {
+const getProducts = ({}) => {
     odoo.connect(function(err) {
         if (err) {
             throw err;
@@ -44,10 +44,10 @@ const getProducts = ({id}) => {
 
         var inParams = [];
         //inParams.push(['84504']); 
-        inParams.push(
-           [id]
-        );
-
+        // inParams.push(
+        //     // [['id', '=', id]]
+        // );
+        inParams.push([]);
 
         var params = [];
         params.push(inParams);
@@ -60,6 +60,7 @@ const getProducts = ({id}) => {
         });
     });
 }
+
 
 //update product
 const updateProduct = ({id}) => {

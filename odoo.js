@@ -76,22 +76,42 @@ var odoo = new Odoo({
 
 //search for products
 
-odoo.connect(function (err) {
-    if (err) { return console.log(err); }
-    console.log('Connected to Odoo server.');
-    var inParams = [];
-    //inParams.push([['is_company', '=', true],['customer', '=', true]],{'fields': ['name', 'id'], 'limit': 50});
-    //inParams.push(0);  //offset
-    //inParams.push('read');
-    inParams.push(['79773']); 
-    var params = [];
-    //inParams.push(['name']); //fields
-    params.push(inParams);
-    odoo.execute_kw('product.product', 'search_read',params,function (err, value) {
-        if (err) { return console.log(err); }
-        console.log('Result: ', value);
-    });
-});
+// odoo.connect(function (err) {
+//     if (err) { return console.log(err); }
+//     console.log('Connected to Odoo server.');
+//     var inParams = [];
+//     //inParams.push([['is_company', '=', true],['customer', '=', true]],{'fields': ['name', 'id'], 'limit': 50});
+//     //inParams.push(0);  //offset
+//     //inParams.push('read');
+//     inParams.push([['id', '=', 79773]]); //id correct
+//     inParams.push([]);//get all products
+//     var params = [];
+//     //inParams.push(['name']); //fields
+//     params.push(inParams);
+//     odoo.execute_kw('product.product', 'search_read',params,function (err, value) {
+//         if (err) { return console.log(err); }
+//         console.log('Result: ', value);
+//     });
+// });
+
+//sale order
+// odoo.connect(function (err) {
+//     if (err) { return console.log(err); }
+//     console.log('Connected to Odoo server.');
+//     var inParams = [];
+//     //inParams.push([['is_company', '=', true],['customer', '=', true]],{'fields': ['name', 'id'], 'limit': 50});
+//     //inParams.push(0);  //offset
+//     //inParams.push('read');
+//     //inParams.push([['id', '=', 92586]]); //id correct
+//     inParams.push([]);//get all products
+//     var params = [];
+//     //inParams.push(['name']); //fields
+//     params.push(inParams);
+//     odoo.execute_kw('sale.order', 'search',params,function (err, value) {
+//         if (err) { return console.log(err); }
+//         console.log('Result: ', value);
+//     });
+// });
 
 
 
@@ -197,4 +217,5 @@ odoo.connect(function (err) {
 // create a sale order
 
 
+//subscriptions
 

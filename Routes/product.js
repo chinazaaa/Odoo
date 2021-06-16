@@ -14,7 +14,7 @@ app.use(express.urlencoded({
 app.use(express.json())
 
 //route to get products in the db
-app.get('/products', async (req, res) => {
+app.get('/products/', async (req, res) => {
     try {
         const result = getProducts()
         successResMsg(
@@ -46,7 +46,7 @@ app.post('/products', async (req, res) => {
             message: 'Missing required body parameters!'
         })
     }
-
+// create a static file, error... className.badRequest
     try {
         const result = createProduct(req.body)
         successResMsg(
