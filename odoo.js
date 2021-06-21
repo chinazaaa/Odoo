@@ -57,22 +57,22 @@ var odoo = new Odoo({
 
 
 // search/read for products& categories
-//  odoo.connect(function (err) {
-//         if (err) { return console.log(err); }
-//         console.log('Connected to Odoo server.');
-//         var inParams = [];
-//         //inParams.push([['is_company', '=', true],['customer', '=', true]],{'fields': ['name', 'id'], 'limit': 50});
-//         //inParams.push(0);  //offset
-//         //inParams.push('read');
-//         inParams.push([['categ_id', '=', 10280]]); //id
-//         var params = [];
-//         inParams.push(['name']); //fields
-//         params.push(inParams);
-//         odoo.execute_kw('product.product', 'search_read',params,function (err, value) {
-//             if (err) { return console.log(err); }
-//             console.log('Result: ', value);
-//         });
-//     });
+ odoo.connect(function (err) {
+        if (err) { return console.log(err); }
+        console.log('Connected to Odoo server.');
+        var inParams = [];
+        //inParams.push([['is_company', '=', true],['customer', '=', true]],{'fields': ['name', 'id'], 'limit': 50});
+        //inParams.push(0);  //offset
+        //inParams.push('read');
+        inParams.push([['categ_id', '=', 10280]]); //id
+        var params = [];
+        inParams.push(['name']); //fields
+        params.push(inParams);
+        odoo.execute_kw('product.product', 'search_read',params,function (err, value) {
+            if (err) { return console.log(err); }
+            console.log('Result: ', value);
+        });
+    });
 
 //search for products
 
@@ -84,7 +84,7 @@ var odoo = new Odoo({
 //     //inParams.push(0);  //offset
 //     //inParams.push('read');
 //     inParams.push([['id', '=', 79773]]); //id correct
-//     inParams.push([]);//get all products
+//     //inParams.push([]);//get all products
 //     var params = [];
 //     //inParams.push(['name']); //fields
 //     params.push(inParams);

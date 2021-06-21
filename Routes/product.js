@@ -2,9 +2,13 @@ const express = require('express')
 const { successResMsg } = require('../Utils/response');
 const {
     getProducts,
-    createProduct
+    createProduct,
+    updateProduct,
+    deleteProduct,
+    categoryProduct
 } = require('../Controllers/products')
 const cors = require('cors')
+
 const app = express()
 
 app.use(cors())
@@ -14,9 +18,9 @@ app.use(express.urlencoded({
 app.use(express.json())
 
 //route to get products in the db
-app.get('/products/', async (req, res) => {
+app.get('/products/:id', (req, res) => {
     try {
-        const result = getProducts()
+        const result = getProducts(req.params.id)
         successResMsg(
             res,
             true,
@@ -24,6 +28,8 @@ app.get('/products/', async (req, res) => {
             200,
             result
           );
+          //console.log(result);
+          
     } catch (e) {
         console.error(e)
         return res.status(500).send({
@@ -65,7 +71,7 @@ app.post('/products', async (req, res) => {
 })
 
 //update products
-app.put('/products', async (req, res) => {
+app.put('/products/:id', async (req, res) => {
    
     try {
         const result = updateProduct(req.params.id, req.body)
@@ -85,14 +91,33 @@ app.put('/products', async (req, res) => {
 })
 
 //delete products
-app.delete('/products', async (req, res) => {
+app.delete('/products/:id', async (req, res) => {
   
     try {
-        const result = deleteProduct(req.params.id, req.body)
+        const result = deleteProduct(req.params.id)
         successResMsg(
             res,
             true,
             "Product deleted successfully",
+            200,
+            result
+          );
+    } catch (e) {
+        console.error(e)
+        return res.status(500).send({
+            message: e.name
+        })
+    }
+})
+//get products by category id
+app.get('/categoryproducts/:id', async (req, res) => {
+  
+    try {
+        const result = categoryProduct(req.params.id)
+        successResMsg(
+            res,
+            true,
+            "Category Product",
             200,
             result
           );

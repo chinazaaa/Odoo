@@ -32,8 +32,9 @@ const createProduct = ({name, type, categ_id, uom_id, uom_po_id})=> {
         });
     });
 };
-//get all products in the db
-const getProducts = ({}) => {
+//get all products by id  in the db
+const getProducts = (id) => {
+    let result;
     odoo.connect(function(err) {
         if (err) {
             throw err;
@@ -41,13 +42,14 @@ const getProducts = ({}) => {
 
         // debug
         console.log('Connected to Odoo server. `getProducts`');
-
+        //let result;
         var inParams = [];
         //inParams.push(['84504']); 
         // inParams.push(
         //     // [['id', '=', id]]
         // );
-        inParams.push([]);
+        inParams.push([['id', '=', id]]); 
+        //inParams.push([id]);
 
         var params = [];
         params.push(inParams);
@@ -56,14 +58,18 @@ const getProducts = ({}) => {
             if (err) {
                 throw err;
             }
-            console.log('Result: ', value);
+            // console.log('Result: ', value);
+             result = value;
+              console.log('Result: ', value);
         });
+        
     });
+    return result
 }
 
 
 //update product
-const updateProduct = ({id}) => {
+const updateProduct = (id, body) => {
     odoo.connect(function(err) {
         if (err) {
             throw err;
@@ -71,16 +77,25 @@ const updateProduct = ({id}) => {
 
         // debug
         console.log('Connected to Odoo server. `updateProduct`');
-
-        var inParams = [];
-        //inParams.push(['84504']); 
+        const inParams = [];
+        inParams.push([id]); //id
+        // const {
+        //     name,
+        //     type,
+        //     categ_id,
+        //     uom_id,
+        //     uom_po_id
+        // } = body
+        // const inParams = [];
         inParams.push(
-           [id] //id to update
+            body
         );
-        //inParams.push({'name': 'NewFF Partner'}) fields to update
 
-        var params = [];
-        params.push(inParams);
+    //     var inParams = [];
+    // inParams.push([3626]); //id to update
+    //inParams.push({'name': 'NewFF Partner'})
+    const params = [];
+    params.push(inParams);
 
         odoo.execute_kw('product.product', 'write', params, function(err, value) {
             if (err) {
@@ -92,7 +107,7 @@ const updateProduct = ({id}) => {
 }
 
 // delete product
-const deleteProduct = ({id}) => {
+const deleteProduct = (id) => {
     odoo.connect(function(err) {
         if (err) {
             throw err;
@@ -122,7 +137,35 @@ const deleteProduct = ({id}) => {
 }
 
 
+// get product by category id
+const categoryProduct = (id) => {
+    odoo.connect(function(err) {
+        if (err) {
+            throw err;
+        }
+
+        // debug
+        console.log('Connected to Odoo server. `categoryProducts`');
+        var inParams = [];
+        inParams.push([['categ_id', '=', id]]); //id
+        var params = [];
+   inParams.push(['name']); //fields
+        params.push(inParams);
+        
+        // params.push(inParams);
+
+        odoo.execute_kw('product.product', 'search_read', params, function(err, value) {
+            if (err) {
+                throw err;
+            }
+            console.log('Result: ', value);
+            return value
+        });
+    });
+}
+
 module.exports.createProduct = createProduct
 module.exports.getProducts = getProducts
 module.exports.updateProduct = updateProduct
 module.exports.deleteProduct = deleteProduct
+module.exports.categoryProduct = categoryProduct
